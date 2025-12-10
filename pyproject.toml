@@ -1,0 +1,96 @@
+[project]
+name = "bloom"
+version = "0.13.0"
+description = "Bloom is a release automation tool for ROS packages"
+readme = "README.rst"
+license = { text = "BSD" }
+authors = [
+    { name = "Tully Foote", email = "tfoote@openrobotics.org" },
+    { name = "William Woodall", email = "william@openrobotics.org" },
+]
+maintainers = [
+    { name = "William Woodall", email = "william@openrobotics.org" },
+]
+keywords = ["ROS", "release", "automation", "debian", "packaging"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: POSIX :: Linux",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "catkin-pkg>=0.4.3",
+    "setuptools",
+    "empy<4",
+    "packaging",
+    "python-dateutil",
+    "pyyaml",
+    "rosdep>=0.15.0",
+    "rosdistro>=0.8.0",
+    "vcstools>=0.1.22",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "ruff",
+]
+
+[project.urls]
+Homepage = "http://www.ros.org/wiki/bloom"
+Repository = "https://github.com/ros-infrastructure/bloom"
+
+[project.scripts]
+git-bloom-config = "bloom.commands.git.config:main"
+git-bloom-import-upstream = "bloom.commands.git.import_upstream:main"
+git-bloom-branch = "bloom.commands.git.branch:main"
+git-bloom-patch = "bloom.commands.git.patch.patch_main:main"
+git-bloom-generate = "bloom.commands.git.generate:main"
+git-bloom-release = "bloom.commands.git.release:main"
+bloom-export-upstream = "bloom.commands.export_upstream:main"
+bloom-update = "bloom.commands.update:main"
+bloom-release = "bloom.commands.release:main"
+bloom-generate = "bloom.commands.generate:main"
+
+[project.entry-points."bloom.generators"]
+release = "bloom.generators.release:ReleaseGenerator"
+rosrelease = "bloom.generators.rosrelease:RosReleaseGenerator"
+debian = "bloom.generators.debian:DebianGenerator"
+rosdebian = "bloom.generators.rosdebian:RosDebianGenerator"
+rpm = "bloom.generators.rpm:RpmGenerator"
+rosrpm = "bloom.generators.rosrpm:RosRpmGenerator"
+
+[project.entry-points."bloom.generate_cmds"]
+debian = "bloom.generators.debian.generate_cmd:description"
+rosdebian = "bloom.generators.rosdebian:description"
+rpm = "bloom.generators.rpm.generate_cmd:description"
+rosrpm = "bloom.generators.rosrpm:description"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["bloom"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "bloom/**",
+    "README.rst",
+    "LICENSE.txt",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]  # Line too long - bloom has many long lines
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+junit_suite_name = "bloom"
