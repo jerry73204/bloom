@@ -167,7 +167,7 @@ def place_template_files(path, build_type, gbp=False):
     if not os.path.exists(debian_path):
         os.makedirs(debian_path)
     # Place template files
-    group = 'bloom.generators.debian'
+    group = 'bloom_gen.generators.debian'
     templates = os.path.join('templates', build_type)
     __place_template_folder(group, templates, debian_path, gbp)
 
