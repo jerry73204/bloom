@@ -38,35 +38,24 @@ Provides functions for interating with github
 from __future__ import print_function
 
 import base64
-import datetime
 import getpass
 import json
 import os
-import socket
 import sys
 
-from bloom_gen.logging import error
-from bloom_gen.logging import info
-from bloom_gen.logging import warning
-
-from bloom_gen.util import maybe_continue
-from bloom_gen.util import safe_input
-
+from bloom_gen.logging import error, info, warning
+from bloom_gen.util import maybe_continue, safe_input
 
 try:
     # Python2
     from urllib import urlencode
-    from urllib2 import HTTPError
-    from urllib2 import Request, urlopen
-    from urllib2 import URLError
-    from urlparse import urlparse
-    from urlparse import urlunsplit
+
+    from urllib2 import HTTPError, Request, URLError, urlopen
+    from urlparse import urlparse, urlunsplit
 except ImportError:
     # Python3
-    from urllib.error import HTTPError
-    from urllib.error import URLError
-    from urllib.parse import urlparse
-    from urllib.parse import urlunsplit
+    from urllib.error import HTTPError, URLError
+    from urllib.parse import urlparse, urlunsplit
     from urllib.request import Request, urlopen
 
 import bloom_gen

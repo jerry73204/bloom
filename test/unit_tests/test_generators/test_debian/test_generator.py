@@ -1,12 +1,9 @@
 import os
 
-from ....utils.common import redirected_stdio
-
-from bloom.generators.debian.generator import em
-from bloom.generators.debian.generator import get_changelogs
-from bloom.generators.debian.generator import format_description
-
+from bloom.generators.debian.generator import em, format_description, get_changelogs
 from catkin_pkg.packages import find_packages
+
+from ....utils.common import redirected_stdio
 
 test_data_dir = os.path.join(os.path.dirname(__file__), 'test_generator_data')
 

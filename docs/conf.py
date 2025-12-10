@@ -62,6 +62,7 @@ version = '0.4'
 # The full version, including alpha/beta/rc tags.
 setup_py = os.path.join(os.path.dirname(__file__), '..', 'setup.py')
 import subprocess
+
 release = subprocess.check_output(sys.executable + ' ' + setup_py + ' --version', shell=True).strip().decode('utf-8')
 print('Using release version: {0}'.format(release))
 

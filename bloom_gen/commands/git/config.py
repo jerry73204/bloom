@@ -34,37 +34,38 @@ from __future__ import print_function
 
 import argparse
 import copy
-import yaml
 import subprocess
 import sys
 
-from bloom_gen.config import ACTION_LIST_HISTORY
-from bloom_gen.config import BLOOM_CONFIG_BRANCH
-from bloom_gen.config import config_template
-from bloom_gen.config import DEFAULT_TEMPLATE
-from bloom_gen.config import get_tracks_dict_raw
-from bloom_gen.config import PromptEntry
-from bloom_gen.config import upconvert_bloom_to_config_branch
-from bloom_gen.config import write_tracks_dict_raw
+import yaml
 
-from bloom_gen.git import branch_exists
-from bloom_gen.git import ls_tree
-from bloom_gen.git import ensure_clean_working_env
-from bloom_gen.git import ensure_git_root
-from bloom_gen.git import get_root
-from bloom_gen.git import inbranch
-
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import info
-from bloom_gen.logging import warning
-
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import execute_command
-from bloom_gen.util import check_output
-from bloom_gen.util import handle_global_arguments
-from bloom_gen.util import maybe_continue
-from bloom_gen.util import safe_input
+from bloom_gen.config import (
+    ACTION_LIST_HISTORY,
+    BLOOM_CONFIG_BRANCH,
+    DEFAULT_TEMPLATE,
+    PromptEntry,
+    config_template,
+    get_tracks_dict_raw,
+    upconvert_bloom_to_config_branch,
+    write_tracks_dict_raw,
+)
+from bloom_gen.git import (
+    branch_exists,
+    ensure_clean_working_env,
+    ensure_git_root,
+    get_root,
+    inbranch,
+    ls_tree,
+)
+from bloom_gen.logging import debug, error, info, warning
+from bloom_gen.util import (
+    add_global_arguments,
+    check_output,
+    execute_command,
+    handle_global_arguments,
+    maybe_continue,
+    safe_input,
+)
 
 template_entry_order = [
     'name',

@@ -5,20 +5,10 @@ import sys
 import traceback
 from subprocess import CalledProcessError
 
-from bloom_gen.git import ensure_git_root
-from bloom_gen.git import get_root
-
+from bloom_gen.commands.git.patch import export_cmd, import_cmd, rebase_cmd, remove_cmd, trim_cmd
+from bloom_gen.git import ensure_git_root, get_root
 from bloom_gen.logging import error
-
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import handle_global_arguments
-from bloom_gen.util import print_exc
-
-from bloom_gen.commands.git.patch import export_cmd
-from bloom_gen.commands.git.patch import import_cmd
-from bloom_gen.commands.git.patch import remove_cmd
-from bloom_gen.commands.git.patch import rebase_cmd
-from bloom_gen.commands.git.patch import trim_cmd
+from bloom_gen.util import add_global_arguments, handle_global_arguments, print_exc
 
 
 def get_argument_parser():

@@ -32,28 +32,21 @@
 
 from __future__ import print_function
 
-import pkg_resources
 import sys
 import traceback
 
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import info
+import pkg_resources
 
-from bloom_gen.rosdistro_api import get_distribution_type
-from bloom_gen.rosdistro_api import get_index
-from bloom_gen.rosdistro_api import get_python_version
-
-from bloom_gen.util import code
-from bloom_gen.util import maybe_continue
-from bloom_gen.util import print_exc
+from bloom_gen.logging import debug, error, info
+from bloom_gen.rosdistro_api import get_distribution_type, get_index, get_python_version
+from bloom_gen.util import code, maybe_continue, print_exc
 
 try:
+    import rosdep2.catkin_support
     from rosdep2 import create_default_installer_context
     from rosdep2.catkin_support import get_catkin_view
     from rosdep2.lookup import ResolutionError
-    import rosdep2.catkin_support
-except ImportError as err:
+except ImportError:
     debug(traceback.format_exc())
     error("rosdep was not detected, please install it.", exit=True)
 

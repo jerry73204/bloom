@@ -47,36 +47,32 @@ except ImportError:
     from urllib.parse import urlparse
 
 from bloom_gen.config import BLOOM_CONFIG_BRANCH
-
-from bloom_gen.git import branch_exists
-from bloom_gen.git import create_branch
-from bloom_gen.git import create_tag
-from bloom_gen.git import delete_remote_tag
-from bloom_gen.git import delete_tag
-from bloom_gen.git import ensure_clean_working_env
-from bloom_gen.git import ensure_git_root
-from bloom_gen.git import get_last_tag_by_version
-from bloom_gen.git import GitClone
-from bloom_gen.git import has_changes
-from bloom_gen.git import inbranch
-from bloom_gen.git import ls_tree
-from bloom_gen.git import show
-from bloom_gen.git import tag_exists
-from bloom_gen.git import track_branches
-
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import fmt
-from bloom_gen.logging import info
-from bloom_gen.logging import warning
-
+from bloom_gen.git import (
+    GitClone,
+    branch_exists,
+    create_branch,
+    create_tag,
+    delete_remote_tag,
+    delete_tag,
+    ensure_clean_working_env,
+    ensure_git_root,
+    get_last_tag_by_version,
+    has_changes,
+    inbranch,
+    ls_tree,
+    show,
+    tag_exists,
+    track_branches,
+)
+from bloom_gen.logging import debug, error, fmt, info, warning
 from bloom_gen.packages import get_package_data
-
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import execute_command
-from bloom_gen.util import get_git_clone_state
-from bloom_gen.util import handle_global_arguments
-from bloom_gen.util import load_url_to_file_handle
+from bloom_gen.util import (
+    add_global_arguments,
+    execute_command,
+    get_git_clone_state,
+    handle_global_arguments,
+    load_url_to_file_handle,
+)
 
 
 def version_check(version):

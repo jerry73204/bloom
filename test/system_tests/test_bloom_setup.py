@@ -5,15 +5,10 @@ This system test tests the scenario of setting up a new bloom repository.
 import os
 
 import yaml
-
-from ..utils.common import in_temporary_directory
-from ..utils.common import bloom_answer
-from ..utils.common import user
-
 from bloom.config import BLOOM_CONFIG_BRANCH
+from bloom.git import branch_exists, inbranch
 
-from bloom.git import branch_exists
-from bloom.git import inbranch
+from ..utils.common import bloom_answer, in_temporary_directory, user
 
 
 @in_temporary_directory

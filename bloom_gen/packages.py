@@ -41,18 +41,12 @@ import os
 import sys
 import traceback
 
-from bloom_gen.git import show
-
 from bloom_gen.config import BLOOM_CONFIG_BRANCH
-
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import info
-from bloom_gen.logging import warning
+from bloom_gen.git import show
+from bloom_gen.logging import debug, error, info, warning
 
 try:
-    from catkin_pkg.packages import find_packages
-    from catkin_pkg.packages import verify_equal_package_versions
+    from catkin_pkg.packages import find_packages, verify_equal_package_versions
 except ImportError:
     debug(traceback.format_exc())
     error("catkin_pkg was not detected, please install it.",

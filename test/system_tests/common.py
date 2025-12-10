@@ -6,9 +6,7 @@ from __future__ import print_function
 
 import os
 
-from ..utils.common import bloom_answer
-from ..utils.common import change_directory
-from ..utils.common import user
+from ..utils.common import bloom_answer, change_directory, user
 
 
 def create_release_repo(upstream_url, upstream_type, upstream_branch='',

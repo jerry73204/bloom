@@ -4,14 +4,9 @@ import os
 import subprocess
 import traceback
 
-from bloom_gen.git import has_changes
-from bloom_gen.git import inbranch
-from bloom_gen.git import show
-
+from bloom_gen.git import has_changes, inbranch, show
 from bloom_gen.logging import error
-
-from bloom_gen.util import execute_command
-from bloom_gen.util import print_exc
+from bloom_gen.util import execute_command, print_exc
 
 _patch_config_keys = [
     'parent',    # The name of the parent reference

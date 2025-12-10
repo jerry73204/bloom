@@ -37,55 +37,41 @@ import datetime
 import io
 import json
 import os
-import pkg_resources
 import re
 import shutil
 import sys
-import traceback
 import textwrap
-
-from dateutil import tz
-from packaging.version import Version
+import traceback
 from time import strptime
 
-from bloom_gen.generators import BloomGenerator
-from bloom_gen.generators import GeneratorError
-from bloom_gen.generators import resolve_dependencies
-from bloom_gen.generators import update_rosdep
+import pkg_resources
+from dateutil import tz
+from packaging.version import Version
 
-from bloom_gen.generators.common import default_fallback_resolver
-from bloom_gen.generators.common import invalidate_view_cache
-from bloom_gen.generators.common import evaluate_package_conditions
-from bloom_gen.generators.common import resolve_rosdep_key
-
-from bloom_gen.git import inbranch
-from bloom_gen.git import get_branches
-from bloom_gen.git import get_commit_hash
-from bloom_gen.git import get_current_branch
-from bloom_gen.git import has_changes
-from bloom_gen.git import show
-from bloom_gen.git import tag_exists
-
-from bloom_gen.logging import ansi
-from bloom_gen.logging import debug
-from bloom_gen.logging import enable_drop_first_log_prefix
-from bloom_gen.logging import error
-from bloom_gen.logging import fmt
-from bloom_gen.logging import info
-from bloom_gen.logging import warning
-
-from bloom_gen.commands.git.patch.common import get_patch_config
-from bloom_gen.commands.git.patch.common import set_patch_config
-
+from bloom_gen.commands.git.patch.common import get_patch_config, set_patch_config
+from bloom_gen.generators import BloomGenerator, GeneratorError, resolve_dependencies, update_rosdep
+from bloom_gen.generators.common import (
+    default_fallback_resolver,
+    evaluate_package_conditions,
+    invalidate_view_cache,
+    resolve_rosdep_key,
+)
+from bloom_gen.git import (
+    get_branches,
+    get_commit_hash,
+    get_current_branch,
+    has_changes,
+    inbranch,
+    show,
+    tag_exists,
+)
+from bloom_gen.logging import ansi, debug, enable_drop_first_log_prefix, error, fmt, info, warning
 from bloom_gen.packages import get_package_data
-
-from bloom_gen.util import code
-from bloom_gen.util import execute_command
-from bloom_gen.util import maybe_continue
+from bloom_gen.util import code, execute_command, maybe_continue
 
 try:
     import rosdistro
-except ImportError as err:
+except ImportError:
     debug(traceback.format_exc())
     error("rosdistro was not detected, please install it.", exit=True)
 
@@ -588,7 +574,7 @@ class RpmGenerator(BloomGenerator):
                             "which are installed with the '{0}' installer."
                             .format(installer_key),
                             returncode=code.GENERATOR_INVALID_INSTALLER_KEY)
-                except (GeneratorError, RuntimeError) as e:
+                except (GeneratorError, RuntimeError):
                     print(fmt("Failed to resolve @{cf}@!{key}@| on @{bf}{os_name}@|:@{cf}@!{os_version}@| with: {e}")
                           .format(**locals()))
                     print(fmt("@{cf}@!{0}@| is depended on by these packages: ").format(key) +

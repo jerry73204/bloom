@@ -1,5 +1,6 @@
-import pep8
 import os
+
+import pep8
 
 
 def test_pep8_conformance():

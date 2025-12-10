@@ -44,19 +44,14 @@ try:
 except ImportError:
     from urlparse import urlparse
 
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import info
-from bloom_gen.logging import warning
-
-from bloom_gen.git import branch_exists
-from bloom_gen.git import get_root
-from bloom_gen.git import tag_exists
-
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import change_directory
-from bloom_gen.util import handle_global_arguments
-from bloom_gen.util import temporary_directory
+from bloom_gen.git import branch_exists, tag_exists
+from bloom_gen.logging import debug, error, info, warning
+from bloom_gen.util import (
+    add_global_arguments,
+    change_directory,
+    handle_global_arguments,
+    temporary_directory,
+)
 
 try:
     from vcstools.vcs_abstraction import get_vcs_client

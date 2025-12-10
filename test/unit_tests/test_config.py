@@ -1,9 +1,8 @@
 import os
 
-from ..utils.common import AssertRaisesContext
-from ..utils.common import redirected_stdio
-
 from bloom.config import validate_track_versions
+
+from ..utils.common import AssertRaisesContext, redirected_stdio
 
 test_data_dir = os.path.join(os.path.dirname(__file__), 'test_packages_data')
 

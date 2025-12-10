@@ -31,8 +31,7 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import print_function, unicode_literals
 
 import os
 import sys
@@ -46,15 +45,8 @@ try:
 except ImportError:
     from urlparse import urlparse
 
-from bloom_gen.github import Github
-from bloom_gen.github import GithubException
-from bloom_gen.github import get_gh_info
-from bloom_gen.github import get_github_interface
-
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import info
-
+from bloom_gen.github import Github, GithubException, get_gh_info, get_github_interface
+from bloom_gen.logging import debug, error, info
 
 try:
     import rosdistro

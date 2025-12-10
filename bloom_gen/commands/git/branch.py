@@ -2,30 +2,21 @@ from __future__ import print_function
 
 import argparse
 
-from bloom_gen.git import branch_exists
-from bloom_gen.git import checkout
-from bloom_gen.git import create_branch
-from bloom_gen.git import ensure_clean_working_env
-from bloom_gen.git import ensure_git_root
-from bloom_gen.git import get_commit_hash
-from bloom_gen.git import get_current_branch
-from bloom_gen.git import ls_tree
-from bloom_gen.git import tag_exists
-from bloom_gen.git import track_branches
-
-from bloom_gen.logging import ansi
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import info
-from bloom_gen.logging import log_prefix
-from bloom_gen.logging import warning
-
-from bloom_gen.commands.git.patch.common import get_patch_config
-from bloom_gen.commands.git.patch.common import set_patch_config
-
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import handle_global_arguments
-from bloom_gen.util import maybe_continue
+from bloom_gen.commands.git.patch.common import get_patch_config, set_patch_config
+from bloom_gen.git import (
+    branch_exists,
+    checkout,
+    create_branch,
+    ensure_clean_working_env,
+    ensure_git_root,
+    get_commit_hash,
+    get_current_branch,
+    ls_tree,
+    tag_exists,
+    track_branches,
+)
+from bloom_gen.logging import ansi, debug, error, info, log_prefix, warning
+from bloom_gen.util import add_global_arguments, handle_global_arguments, maybe_continue
 
 
 @log_prefix('[git-bloom-branch]: ')

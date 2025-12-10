@@ -1,4 +1,3 @@
-from .generator import RpmGenerator
-from .generator import sanitize_package_name
+from .generator import RpmGenerator, sanitize_package_name
 
 __all__ = ['RpmGenerator', 'sanitize_package_name']

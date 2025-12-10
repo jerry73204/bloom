@@ -41,37 +41,32 @@ import sys
 import tempfile
 import traceback
 
-from bloom_gen.config import DEFAULT_TEMPLATE
-from bloom_gen.config import get_tracks_dict_raw
-from bloom_gen.config import template_str
-from bloom_gen.config import verify_track
-from bloom_gen.config import write_tracks_dict_raw
-
-from bloom_gen.git import ensure_clean_working_env
-from bloom_gen.git import ensure_git_root
-from bloom_gen.git import get_current_branch
-from bloom_gen.git import get_root
-from bloom_gen.git import GitClone
-
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import fmt
-from bloom_gen.logging import get_error_prefix
-from bloom_gen.logging import info
-from bloom_gen.logging import sanitize
-from bloom_gen.logging import warning
-
+from bloom_gen.config import (
+    DEFAULT_TEMPLATE,
+    get_tracks_dict_raw,
+    template_str,
+    verify_track,
+    write_tracks_dict_raw,
+)
+from bloom_gen.git import (
+    GitClone,
+    ensure_clean_working_env,
+    ensure_git_root,
+    get_current_branch,
+    get_root,
+)
+from bloom_gen.logging import debug, error, fmt, get_error_prefix, info, sanitize, warning
 from bloom_gen.packages import get_package_data
-
-import bloom_gen.util
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import change_directory
-from bloom_gen.util import code
-from bloom_gen.util import disable_git_clone
-from bloom_gen.util import handle_global_arguments
-from bloom_gen.util import maybe_continue
-from bloom_gen.util import quiet_git_clone_warning
-from bloom_gen.util import safe_input
+from bloom_gen.util import (
+    add_global_arguments,
+    change_directory,
+    code,
+    disable_git_clone,
+    handle_global_arguments,
+    maybe_continue,
+    quiet_git_clone_warning,
+    safe_input,
+)
 
 try:
     from vcstools.vcs_abstraction import get_vcs_client

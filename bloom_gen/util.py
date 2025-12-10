@@ -46,21 +46,14 @@ import time
 
 try:
     # Python2
-    from urllib2 import HTTPError
-    from urllib2 import URLError
-    from urllib2 import urlopen
+    from urllib2 import HTTPError, URLError, urlopen
 except ImportError:
     # Python3
-    from urllib.error import HTTPError
-    from urllib.error import URLError
+    from urllib.error import HTTPError, URLError
     from urllib.request import urlopen
 
 from email.utils import formatdate
-
-from subprocess import CalledProcessError
-from subprocess import PIPE
-from subprocess import STDOUT
-from subprocess import Popen
+from subprocess import PIPE, STDOUT, CalledProcessError, Popen
 
 try:
     # Python2
@@ -69,14 +62,16 @@ except ImportError:
     # Python3
     from io import StringIO
 
-from bloom_gen.logging import debug
-from bloom_gen.logging import disable_ANSI_colors
-from bloom_gen.logging import enable_debug
-from bloom_gen.logging import error
-from bloom_gen.logging import fmt
-from bloom_gen.logging import info
-from bloom_gen.logging import sanitize
-from bloom_gen.logging import warning
+from bloom_gen.logging import (
+    debug,
+    disable_ANSI_colors,
+    enable_debug,
+    error,
+    fmt,
+    info,
+    sanitize,
+    warning,
+)
 
 try:
     to_unicode = unicode
@@ -86,7 +81,7 @@ except NameError:
 
 def flush_stdin():
     try:
-        from termios import tcflush, TCIFLUSH
+        from termios import TCIFLUSH, tcflush
         tcflush(sys.stdin, TCIFLUSH)
     except ImportError:
         # fallback if not supported on some platforms
@@ -307,8 +302,8 @@ def print_exc(exc):
     exc_str = ''.join(exc)
     try:
         from pygments import highlight
-        from pygments.lexers import PythonTracebackLexer
         from pygments.formatters import TerminalFormatter
+        from pygments.lexers import PythonTracebackLexer
 
         exc_str = highlight(exc_str, PythonTracebackLexer(),
                             TerminalFormatter())

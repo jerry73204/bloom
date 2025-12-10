@@ -34,18 +34,15 @@
 from __future__ import print_function
 
 from bloom_gen.generators.common import default_fallback_resolver
-
-from bloom_gen.generators.debian.generator import sanitize_package_name
-
 from bloom_gen.generators.debian import DebianGenerator
-from bloom_gen.generators.debian.generator import generate_substitutions_from_package
 from bloom_gen.generators.debian.generate_cmd import main as debian_main
 from bloom_gen.generators.debian.generate_cmd import prepare_arguments
-
+from bloom_gen.generators.debian.generator import (
+    generate_substitutions_from_package,
+    sanitize_package_name,
+)
 from bloom_gen.logging import info
-
-from bloom_gen.rosdistro_api import get_index
-from bloom_gen.rosdistro_api import get_non_eol_distros_prompt
+from bloom_gen.rosdistro_api import get_index, get_non_eol_distros_prompt
 
 
 class RosDebianGenerator(DebianGenerator):

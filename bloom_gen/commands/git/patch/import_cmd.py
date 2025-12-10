@@ -1,29 +1,21 @@
 from __future__ import print_function
 
-import sys
 import os
-import tempfile
 import shutil
 import subprocess
+import sys
+import tempfile
 
-from bloom_gen.git import branch_exists
-from bloom_gen.git import checkout
-from bloom_gen.git import get_commit_hash
-from bloom_gen.git import get_current_branch
-from bloom_gen.git import track_branches
-
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import info
-from bloom_gen.logging import log_prefix
-from bloom_gen.logging import warning
-
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import execute_command
-from bloom_gen.util import handle_global_arguments
-
-from bloom_gen.commands.git.patch.common import get_patch_config
-from bloom_gen.commands.git.patch.common import list_patches
+from bloom_gen.commands.git.patch.common import get_patch_config, list_patches
+from bloom_gen.git import (
+    branch_exists,
+    checkout,
+    get_commit_hash,
+    get_current_branch,
+    track_branches,
+)
+from bloom_gen.logging import debug, error, info, log_prefix, warning
+from bloom_gen.util import add_global_arguments, execute_command, handle_global_arguments
 
 
 @log_prefix('[git-bloom-patch import]: ')

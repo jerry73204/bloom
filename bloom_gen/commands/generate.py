@@ -35,10 +35,10 @@ from __future__ import print_function
 
 import argparse
 import sys
+
 import pkg_resources
 
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import handle_global_arguments
+from bloom_gen.util import add_global_arguments, handle_global_arguments
 
 BLOOM_GENERATE_CMDS_GROUP = 'bloom.generate_cmds'
 

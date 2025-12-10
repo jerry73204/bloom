@@ -31,11 +31,11 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 from __future__ import print_function
+
 import os
 import re
 
-from ..utils.common import change_directory
-from ..utils.common import user
+from ..utils.common import change_directory, user
 
 
 def bump_version(version, bump='patch'):

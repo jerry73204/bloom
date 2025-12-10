@@ -1,29 +1,26 @@
 from __future__ import print_function
 
-import os
 import argparse
+import os
 import shutil
 from tempfile import mkdtemp
 
-from bloom_gen.git import ensure_clean_working_env
-from bloom_gen.git import get_commit_hash
-from bloom_gen.git import get_current_branch
-from bloom_gen.git import get_root
-from bloom_gen.git import has_changes
-from bloom_gen.git import inbranch
-
-from bloom_gen.logging import ansi
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import log_prefix
-
-from bloom_gen.commands.git.patch.common import get_patch_config
-from bloom_gen.commands.git.patch.common import set_patch_config
-
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import execute_command
-from bloom_gen.util import handle_global_arguments
-from bloom_gen.util import my_copytree
+from bloom_gen.commands.git.patch.common import get_patch_config, set_patch_config
+from bloom_gen.git import (
+    ensure_clean_working_env,
+    get_commit_hash,
+    get_current_branch,
+    get_root,
+    has_changes,
+    inbranch,
+)
+from bloom_gen.logging import ansi, debug, error, log_prefix
+from bloom_gen.util import (
+    add_global_arguments,
+    execute_command,
+    handle_global_arguments,
+    my_copytree,
+)
 
 
 def non_git_rebase(upstream_branch, directory=None):

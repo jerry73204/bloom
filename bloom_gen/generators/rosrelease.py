@@ -1,16 +1,11 @@
 from __future__ import print_function
 
 from bloom_gen.generators.release import ReleaseGenerator
-
 from bloom_gen.git import inbranch
-
 from bloom_gen.logging import warning
-
 from bloom_gen.packages import get_package_data
-
-from bloom_gen.util import execute_command
-
 from bloom_gen.rosdistro_api import get_non_eol_distros_prompt
+from bloom_gen.util import execute_command
 
 
 class RosReleaseGenerator(ReleaseGenerator):

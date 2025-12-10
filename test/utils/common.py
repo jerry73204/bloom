@@ -19,7 +19,8 @@ except ImportError:
     # Python3
     from io import StringIO
 
-from subprocess import Popen, PIPE, CalledProcessError
+from subprocess import PIPE, CalledProcessError, Popen
+
 import yaml
 
 
@@ -76,8 +77,8 @@ class bloom_answer(object):
     def __init__(self, answer, util_module=None):
         self.answer = answer
         if util_module is None:
-            import bloom.util as util_module
             import bloom.commands.git.config as config_module
+            import bloom.util as util_module
         self.util_module = util_module
         self.config_module = config_module
 
@@ -196,8 +197,8 @@ def user_bloom(cmd, args=None, directory=None, auto_assert=True,
     assert type(args) in [list, tuple, str], \
         "user_bloom args takes [list, tuple, str] only, got " + \
         str(type(args))
-    from pkg_resources import load_entry_point
     from bloom import __version__ as ver
+    from pkg_resources import load_entry_point
     if not cmd.startswith('git-bloom-'):
         cmd = 'git-bloom-' + cmd
     if type(args) != list:

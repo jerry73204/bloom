@@ -35,34 +35,24 @@ from __future__ import print_function
 import argparse
 import sys
 import traceback
-
 from subprocess import CalledProcessError
 
 from bloom_gen.commands.git.branch import execute_branch
-
-from bloom_gen.generators import GeneratorError
-from bloom_gen.generators import list_generators
-from bloom_gen.generators import load_generator
-
-from bloom_gen.git import ensure_clean_working_env
-from bloom_gen.git import ensure_git_root
-from bloom_gen.git import GitClone
-
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-# from bloom_gen.logging import info
-from bloom_gen.logging import log_prefix
-from bloom_gen.logging import warning
-
 from bloom_gen.commands.git.patch.export_cmd import export_patches
 from bloom_gen.commands.git.patch.import_cmd import import_patches
 from bloom_gen.commands.git.patch.rebase_cmd import rebase_patches
+from bloom_gen.generators import GeneratorError, list_generators, load_generator
+from bloom_gen.git import GitClone, ensure_clean_working_env, ensure_git_root
 
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import code
-from bloom_gen.util import handle_global_arguments
-from bloom_gen.util import maybe_continue
-from bloom_gen.util import print_exc
+# from bloom_gen.logging import info
+from bloom_gen.logging import debug, error, log_prefix, warning
+from bloom_gen.util import (
+    add_global_arguments,
+    code,
+    handle_global_arguments,
+    maybe_continue,
+    print_exc,
+)
 
 
 class CommandFailed(Exception):

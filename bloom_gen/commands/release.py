@@ -31,15 +31,13 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import print_function, unicode_literals
 
 import argparse
 import atexit
 import datetime
 import difflib
 import os
-import pkg_resources
 import platform
 import shutil
 import subprocess
@@ -47,6 +45,8 @@ import sys
 import tempfile
 import traceback
 import webbrowser
+
+import pkg_resources
 import yaml
 
 # python2/3 compatibility
@@ -59,55 +59,53 @@ except ImportError:
     from urlparse import urlparse
 
 import bloom_gen
-
-from bloom_gen.config import BLOOM_CONFIG_BRANCH
-from bloom_gen.config import get_tracks_dict_raw
-from bloom_gen.config import upconvert_bloom_to_config_branch
-from bloom_gen.config import write_tracks_dict_raw
-
-from bloom_gen.git import branch_exists
-from bloom_gen.git import checkout
-from bloom_gen.git import get_branches
-from bloom_gen.git import get_current_branch
-from bloom_gen.git import inbranch
-from bloom_gen.git import ls_tree
-
-from bloom_gen.github import GithubException
-from bloom_gen.github import get_gh_info
-from bloom_gen.github import get_github_interface
-
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import fmt
-from bloom_gen.logging import get_error_prefix
-from bloom_gen.logging import get_success_prefix
-from bloom_gen.logging import info
-from bloom_gen.logging import sanitize
-from bloom_gen.logging import warning
-
-from bloom_gen.packages import get_package_data
-from bloom_gen.packages import get_ignored_packages
-
-from bloom_gen.rosdistro_api import get_distribution_file
-from bloom_gen.rosdistro_api import get_index
-from bloom_gen.rosdistro_api import get_most_recent
-from bloom_gen.rosdistro_api import get_rosdistro_index_commit
-from bloom_gen.rosdistro_api import get_rosdistro_index_original_branch
-
-from bloom_gen.summary import commit_summary
-from bloom_gen.summary import get_summary_file
-
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import change_directory
-from bloom_gen.util import disable_git_clone
-from bloom_gen.util import get_rfc_2822_date
-from bloom_gen.util import handle_global_arguments
-from bloom_gen.util import load_url_to_file_handle
-from bloom_gen.util import maybe_continue
-from bloom_gen.util import quiet_git_clone_warning
-from bloom_gen.util import safe_input
-from bloom_gen.util import temporary_directory
-from bloom_gen.util import to_unicode
+from bloom_gen.config import (
+    BLOOM_CONFIG_BRANCH,
+    get_tracks_dict_raw,
+    upconvert_bloom_to_config_branch,
+    write_tracks_dict_raw,
+)
+from bloom_gen.git import (
+    branch_exists,
+    checkout,
+    get_branches,
+    get_current_branch,
+    inbranch,
+    ls_tree,
+)
+from bloom_gen.github import GithubException, get_gh_info, get_github_interface
+from bloom_gen.logging import (
+    debug,
+    error,
+    fmt,
+    get_error_prefix,
+    get_success_prefix,
+    info,
+    sanitize,
+    warning,
+)
+from bloom_gen.packages import get_ignored_packages, get_package_data
+from bloom_gen.rosdistro_api import (
+    get_distribution_file,
+    get_index,
+    get_most_recent,
+    get_rosdistro_index_commit,
+    get_rosdistro_index_original_branch,
+)
+from bloom_gen.summary import commit_summary, get_summary_file
+from bloom_gen.util import (
+    add_global_arguments,
+    change_directory,
+    disable_git_clone,
+    get_rfc_2822_date,
+    handle_global_arguments,
+    load_url_to_file_handle,
+    maybe_continue,
+    quiet_git_clone_warning,
+    safe_input,
+    temporary_directory,
+    to_unicode,
+)
 
 try:
     import vcstools
@@ -116,12 +114,9 @@ except ImportError:
     error("vcstools was not detected, please install it.", file=sys.stderr,
           exit=True)
 import vcstools.__version__
-from vcstools.vcs_abstraction import get_vcs_client
-
-from rosdistro import DistributionFile
-from rosdistro import get_distribution_files
-from rosdistro import get_index_url
+from rosdistro import DistributionFile, get_index_url
 from rosdistro.writer import yaml_from_distribution_file
+from vcstools.vcs_abstraction import get_vcs_client
 
 try:
     import rosdep2
@@ -693,7 +688,7 @@ Increasing version of package(s) in repository `{repository}` to `{version}`:
                     user_repo = gh.get_repo(gh.username, base_info['repo'])
                     if user_repo['fork'] and user_repo['source']['full_name'] == target_repo_source:
                         head_repo = user_repo
-                except GithubException as exc:
+                except GithubException:
                     debug("Received GithubException while checking for fork: {exc}".format(**locals()))
                     # 404 on finding an exact match repo.
                     # Proceed listing all forks.
@@ -704,7 +699,7 @@ Increasing version of package(s) in repository `{repository}` to `{version}`:
                     # github allows only 1 fork per org as far as I know. We just take the first one.
                     head_repo = user_forks[0] if user_forks else None
 
-            except GithubException as exc:
+            except GithubException:
                 debug("Received GithubException while checking for fork: {exc}".format(**locals()))
                 pass  # 404 or unauthorized, but unauthorized should have been caught above
 

@@ -32,18 +32,16 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import print_function, unicode_literals
 
 import atexit
 import datetime
+import functools
 import os
-from platform import mac_ver
 import re
 import string
 import sys
-
-import functools
+from platform import mac_ver
 
 _ansi = {}
 _quiet = False

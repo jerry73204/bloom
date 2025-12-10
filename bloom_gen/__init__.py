@@ -1,5 +1,5 @@
 try:
-    from importlib.metadata import version, PackageNotFoundError
+    from importlib.metadata import PackageNotFoundError, version
     try:
         __version__ = version("bloom")
     except PackageNotFoundError:
@@ -8,6 +8,6 @@ except ImportError:
     __version__ = 'unset'
 
 # Library API exports
-from bloom_gen.api import generate_debian, GenerateResult, copy_debian_to_dest
+from bloom_gen.api import GenerateResult, copy_debian_to_dest, generate_debian
 
 __all__ = ['generate_debian', 'GenerateResult', 'copy_debian_to_dest', '__version__']

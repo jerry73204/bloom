@@ -14,25 +14,20 @@ except ImportError:
     print("vcstools was not detected, please install it.", file=sys.stderr)
     sys.exit(1)
 
-from .common import create_release_repo
-
-from ..utils.common import bloom_answer
-from ..utils.common import change_directory
-from ..utils.common import in_temporary_directory
-from ..utils.common import set_up_fake_rosdep
-from ..utils.common import user
-from ..utils.package_version import change_upstream_version
-
-from bloom.git import branch_exists
-from bloom.git import inbranch
-
+from bloom.commands.git.patch import export_cmd, import_cmd, remove_cmd
+from bloom.generators.debian.generator import sanitize_package_name
+from bloom.git import branch_exists, inbranch
 from bloom.util import code
 
-from bloom.commands.git.patch import export_cmd
-from bloom.commands.git.patch import import_cmd
-from bloom.commands.git.patch import remove_cmd
-
-from bloom.generators.debian.generator import sanitize_package_name
+from ..utils.common import (
+    bloom_answer,
+    change_directory,
+    in_temporary_directory,
+    set_up_fake_rosdep,
+    user,
+)
+from ..utils.package_version import change_upstream_version
+from .common import create_release_repo
 
 
 def create_upstream_repository(packages, directory=None, format_versions=None):
@@ -414,5 +409,4 @@ def test_upstream_tag_special_tag(directory=None):
     with change_directory(release_dir):
         user('git tag upstream/0.0.0@baz')
 
-    import bloom.commands.git.release
     _test_unary_package_repository(release_dir, '0.1.0', directory, env=env)

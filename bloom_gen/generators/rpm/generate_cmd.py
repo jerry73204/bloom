@@ -37,15 +37,12 @@ import os
 import sys
 import traceback
 
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import fmt
-from bloom_gen.logging import info
-
-from bloom_gen.generators.rpm.generator import generate_substitutions_from_package
-from bloom_gen.generators.rpm.generator import place_template_files
-from bloom_gen.generators.rpm.generator import process_template_files
-
+from bloom_gen.generators.rpm.generator import (
+    generate_substitutions_from_package,
+    place_template_files,
+    process_template_files,
+)
+from bloom_gen.logging import debug, error, fmt, info
 from bloom_gen.rosdistro_api import get_non_eol_distros_prompt
 
 try:

@@ -36,28 +36,23 @@ import os
 import re
 import shutil
 import string
-import yaml
-
 from tempfile import mkdtemp
 
-from bloom_gen.git import branch_exists
-from bloom_gen.git import create_branch
-from bloom_gen.git import has_changes
-from bloom_gen.git import get_remotes
-from bloom_gen.git import get_root
-from bloom_gen.git import inbranch
-from bloom_gen.git import show
-from bloom_gen.git import track_branches
+import yaml
 
-from bloom_gen.logging import error
-from bloom_gen.logging import fmt
-from bloom_gen.logging import info
-from bloom_gen.logging import sanitize
-
-from bloom_gen.util import execute_command
-from bloom_gen.util import my_copytree
-
+from bloom_gen.git import (
+    branch_exists,
+    create_branch,
+    get_remotes,
+    get_root,
+    has_changes,
+    inbranch,
+    show,
+    track_branches,
+)
+from bloom_gen.logging import error, fmt, info, sanitize
 from bloom_gen.rosdistro_api import get_non_eol_distros_prompt
+from bloom_gen.util import execute_command, my_copytree
 
 BLOOM_CONFIG_BRANCH = 'master'
 PLACEHOLDER_FILE = 'CONTENT_MOVED_TO_{0}_BRANCH'.format(BLOOM_CONFIG_BRANCH.upper())

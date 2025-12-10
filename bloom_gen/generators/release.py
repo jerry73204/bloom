@@ -34,22 +34,12 @@ from __future__ import print_function
 
 import traceback
 
-from bloom_gen.generators import BloomGenerator
-
-from bloom_gen.git import inbranch
-from bloom_gen.git import get_current_branch
-
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import fmt
-from bloom_gen.logging import info
-from bloom_gen.logging import warning
-
-from bloom_gen.packages import get_package_data
-
-from bloom_gen.util import execute_command
-
 from bloom_gen.commands.git.patch.trim_cmd import trim
+from bloom_gen.generators import BloomGenerator
+from bloom_gen.git import get_current_branch, inbranch
+from bloom_gen.logging import debug, error, fmt, info, warning
+from bloom_gen.packages import get_package_data
+from bloom_gen.util import execute_command
 
 try:
     import catkin_pkg
@@ -58,7 +48,7 @@ try:
         warning("This version of bloom requires catkin_pkg version >= '0.3.8',"
                 " the used version of catkin_pkg is '{0}'".format(catkin_pkg.__version__))
     from catkin_pkg import metapackage
-except ImportError as err:
+except ImportError:
     debug(traceback.format_exc())
     error("catkin_pkg was not detected, please install it.", exit=True)
 

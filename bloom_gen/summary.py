@@ -39,12 +39,8 @@ from __future__ import print_function
 import atexit
 import os
 
+from bloom_gen.git import get_root, has_changes, inbranch
 from bloom_gen.logging import _get_summary_file_path
-
-from bloom_gen.git import inbranch
-from bloom_gen.git import get_root
-from bloom_gen.git import has_changes
-
 from bloom_gen.util import execute_command
 
 _summary_file = None

@@ -34,29 +34,23 @@
 
 from __future__ import print_function
 
-import os
 import functools
+import os
 import re
 import shutil
 import subprocess
 import tempfile
+from subprocess import PIPE, CalledProcessError
 
-from subprocess import PIPE
-from subprocess import CalledProcessError
-
-from bloom_gen.logging import debug
-from bloom_gen.logging import error
-from bloom_gen.logging import fmt
-from bloom_gen.logging import info
-from bloom_gen.logging import warning
-
-from bloom_gen.util import change_directory
-from bloom_gen.util import check_output
-from bloom_gen.util import execute_command
-from bloom_gen.util import get_git_clone_state
-from bloom_gen.util import get_git_clone_state_quiet
-from bloom_gen.util import pdb_hook
-import bloom_gen.util
+from bloom_gen.logging import debug, error, fmt, info, warning
+from bloom_gen.util import (
+    change_directory,
+    check_output,
+    execute_command,
+    get_git_clone_state,
+    get_git_clone_state_quiet,
+    pdb_hook,
+)
 
 
 class GitClone(object):

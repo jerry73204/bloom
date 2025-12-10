@@ -50,11 +50,11 @@ Example usage:
         print(f"Error: {result.error}")
 """
 
+import os
+import shutil
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
-import os
-import shutil
 
 
 @dataclass
@@ -106,10 +106,11 @@ def generate_debian(
     try:
         # Import bloom modules here to avoid import errors during module load
         from catkin_pkg.packages import find_packages
+
         from bloom_gen.generators.debian.generator import (
+            generate_substitutions_from_package,
             place_template_files,
             process_template_files,
-            generate_substitutions_from_package,
         )
         from bloom_gen.generators.rosdebian import rosify_package_name
 

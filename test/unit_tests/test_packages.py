@@ -1,11 +1,8 @@
 import os
 
-from ..utils.common import AssertRaisesContext
-from ..utils.common import in_temporary_directory
-from ..utils.common import redirected_stdio
-from ..utils.common import user
-
 from bloom.packages import get_package_data
+
+from ..utils.common import AssertRaisesContext, in_temporary_directory, redirected_stdio, user
 
 test_data_dir = os.path.join(os.path.dirname(__file__), 'test_packages_data')
 

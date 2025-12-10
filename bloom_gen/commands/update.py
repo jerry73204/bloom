@@ -34,10 +34,11 @@ from __future__ import print_function
 
 import argparse
 import atexit
-import bloom_gen
 import json
 import os
 import sys
+
+import bloom_gen
 
 try:
     # Python2
@@ -46,13 +47,12 @@ except ImportError:
     # Python3
     from urllib.request import urlopen
 
-from bloom_gen.logging import warning
-
-from bloom_gen.util import add_global_arguments
-from bloom_gen.util import handle_global_arguments
+from threading import Lock
 
 from packaging.version import parse as parse_version
-from threading import Lock
+
+from bloom_gen.logging import warning
+from bloom_gen.util import add_global_arguments, handle_global_arguments
 
 _updater_running = False
 _updater_lock = Lock()
