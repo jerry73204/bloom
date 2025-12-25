@@ -88,8 +88,9 @@ override_dh_auto_test:
 
 override_dh_shlibdeps:
 	# Source setup script for shared library dependency resolution
+	# Use --ignore-missing-info to handle libraries not installed via APT (e.g., CUDA from NVIDIA base images)
 	source "$(SETUP_SCRIPT)" 2>/dev/null || true; \
-	dh_shlibdeps $(EXTRA_LIB_PATHS) -l$(CURDIR)/debian/@(Package)/@(InstallationPrefix)/lib/:$(CURDIR)/debian/@(Package)/@(InstallationPrefix)/opt/@(Name)/lib/
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info $(EXTRA_LIB_PATHS) -l$(CURDIR)/debian/@(Package)/@(InstallationPrefix)/lib/:$(CURDIR)/debian/@(Package)/@(InstallationPrefix)/opt/@(Name)/lib/
 
 override_dh_auto_install:
 	# Source setup script for install environment
