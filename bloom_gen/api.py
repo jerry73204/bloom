@@ -198,7 +198,7 @@ def copy_debian_to_dest(
             success=True,
             debian_dir=dst_debian_dir,
         )
-    except Exception as e:
+    except OSError as e:
         return GenerateResult(
             success=False,
             error=f"Failed to copy debian directory: {e}"

@@ -291,7 +291,7 @@ try:
     if str(os.getpid()) == _log_id:
         import bloom_gen
         _file_log.write("[bloom] bloom version " + bloom_gen.__version__ + "\n")
-except Exception as exc:
+except OSError as exc:
     _file_log = None
     error("Logging is not working: {0}: {1}".format(exc.__class__.__name__, exc))
 

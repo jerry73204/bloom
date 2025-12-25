@@ -42,10 +42,11 @@ import bloom_gen
 
 try:
     # Python2
-    from urllib2 import urlopen
+    from urllib2 import urlopen, URLError
 except ImportError:
     # Python3
     from urllib.request import urlopen
+    from urllib.error import URLError
 
 from threading import Lock
 
@@ -142,7 +143,7 @@ def main(sysargs=None):
     user_bloom = os.path.join(os.path.expanduser('~'), '.bloom')
     try:
         fetch_update(user_bloom)
-    except Exception as e:
+    except (URLError, json.JSONDecodeError, OSError, ValueError) as e:
         if not _quiet:
             print('Error fetching latest version: ' + str(e), file=sys.stderr)
         if os.path.exists(user_bloom):

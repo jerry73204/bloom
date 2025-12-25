@@ -1146,7 +1146,7 @@ def perform_release(
                     info("Please manually open a pull request by editing the file here: '{0}'"
                          .format(get_distribution_file_url(distro)))
                     info(fmt(_error) + "No pull request opened.")
-            except Exception as e:
+            except (GithubException, OSError, IOError) as e:
                 debug(traceback.format_exc())
                 error("Failed to open pull request: {0} - {1}".format(type(e).__name__, e), exit=True)
 

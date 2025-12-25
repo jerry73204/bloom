@@ -37,6 +37,8 @@ import os
 import sys
 import traceback
 
+import em
+
 from bloom_gen.generators.rpm.generator import (
     generate_substitutions_from_package,
     place_template_files,
@@ -132,7 +134,7 @@ def main(args=None, get_subs_fn=None):
             if template_files is not None:
                 for template_file in template_files:
                     os.remove(os.path.normpath(template_file))
-        except Exception as exc:
+        except (OSError, em.Error) as exc:
             debug(traceback.format_exc())
             error(type(exc).__name__ + ": " + str(exc), exit=True)
         except (KeyboardInterrupt, EOFError):
