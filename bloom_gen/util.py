@@ -81,10 +81,13 @@ except NameError:
 
 def flush_stdin():
     try:
-        from termios import TCIFLUSH, tcflush
+        from termios import TCIFLUSH, tcflush, error as termios_error
         tcflush(sys.stdin, TCIFLUSH)
     except ImportError:
         # fallback if not supported on some platforms
+        pass
+    except termios_error:
+        # Handle termios.error when stdin is not a terminal (e.g., in Docker)
         pass
 
 if sys.version_info < (3, 0):
@@ -369,7 +372,16 @@ def create_temporary_directory(prefix_dir=None):
 
 
 def maybe_continue(default='y', msg='Continue'):
-    """Prompts the user for continuation"""
+    """Prompts the user for continuation.
+
+    In non-interactive mode (when stdin is not a terminal), automatically
+    returns True to continue without prompting.
+    """
+    # Auto-continue in non-interactive mode (e.g., Docker, CI)
+    if not sys.stdin.isatty():
+        info("Non-interactive mode: auto-continuing with default '{0}'".format(default))
+        return default.lower() == 'y'
+
     default = default.lower()
     msg = "@!{msg} ".format(msg=sanitize(msg))
     if default == 'y':
