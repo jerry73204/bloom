@@ -75,6 +75,7 @@ def generate_debian(
     colcon_install_path: Optional[str] = None,
     debian_inc: str = "0",
     native: bool = False,
+    peer_packages: Optional[list[str]] = None,
 ) -> GenerateResult:
     """
     Generate Debian packaging metadata for a ROS package.
@@ -88,6 +89,7 @@ def generate_debian(
         colcon_install_path: Path to colcon install directory (for CMAKE_PREFIX_PATH)
         debian_inc: Debian increment number (default: "0")
         native: Whether to generate native package (default: False)
+        peer_packages: List of package names in the workspace to skip rosdep resolution for
 
     Returns:
         GenerateResult with success status and debian directory path or error message.
@@ -109,6 +111,7 @@ def generate_debian(
 
         from bloom_gen.generators.debian.generator import (
             generate_substitutions_from_package,
+            missing_dep_resolver,
             place_template_files,
             process_template_files,
         )
@@ -139,6 +142,8 @@ def generate_debian(
             ros_distro,
             install_prefix,
             deb_inc=debian_inc,
+            peer_packages=peer_packages or [],
+            fallback_resolver=missing_dep_resolver,
             native=native,
         )
 
