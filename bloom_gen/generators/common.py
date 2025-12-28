@@ -206,8 +206,9 @@ def resolve_rosdep_key(
             if maybe_continue():
                 update_rosdep()
                 invalidate_view_cache()
+                # Only retry once to avoid infinite loop on unresolvable keys
                 return resolve_rosdep_key(key, os_name, os_version, ros_distro,
-                                          ignored, retry=True)
+                                          ignored, retry=False)
         BloomGenerator.exit("Failed to resolve rosdep key '{0}', aborting."
                             .format(key), returncode=returncode)
 
