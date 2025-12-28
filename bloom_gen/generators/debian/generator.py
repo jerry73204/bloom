@@ -526,15 +526,10 @@ def __process_template_folder(path, subs):
         # Remove extension
         template_path = item[:-len(TEMPLATE_EXTENSION)]
         # Expand template
+        # Use stderr to avoid capture by empy's stdout redirection during parallel processing
         info("Expanding '{0}' -> '{1}'".format(
             os.path.relpath(item),
-            os.path.relpath(template_path)))
-        # Debug: Print all @ occurrences in template
-        if 'rules.em' in item:
-            error("DEBUG: Processing rules.em from {0}".format(item))
-            for i, line in enumerate(template.split('\n'), 1):
-                if '@' in line and '@(' not in line and '@@' not in line:
-                    error("DEBUG:   Line {0}: {1}".format(i, repr(line)))
+            os.path.relpath(template_path)), file=sys.stderr)
         result = em.expand(template, **subs)
         # Don't write an empty file
         if len(result) == 0 and \
@@ -553,7 +548,8 @@ def __process_template_folder(path, subs):
 
 
 def process_template_files(path, subs):
-    info(fmt("@!@{bf}==>@| In place processing templates in 'debian' folder."))
+    # Use stderr to avoid capture by empy's stdout redirection during parallel processing
+    info(fmt("@!@{bf}==>@| In place processing templates in 'debian' folder."), file=sys.stderr)
     debian_dir = os.path.join(path, 'debian')
     if not os.path.exists(debian_dir):
         sys.exit("No debian directory found at '{0}', cannot process templates."
