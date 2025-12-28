@@ -56,12 +56,12 @@ export AMENT_PREFIX_PATH := $(PATH_COLCON):$(PATH_INSTALL):$(PATH_ROS)
 	dh $@@ -v --buildsystem=cmake --builddirectory=.obj-$(DEB_HOST_GNU_TYPE)
 
 override_dh_auto_configure:
-	# Source the colcon workspace local_setup.bash first to get any additional env vars
-	# Set CMAKE_PREFIX_PATH and AMENT_PREFIX_PATH as environment variables with semicolons
-	# cmake will use these env vars if the cache vars are not set
+	# Source the colcon workspace local_setup.bash first to set up CMAKE_PREFIX_PATH
+	# with all individual package directories (colcon uses isolated installs).
+	# We then PREPEND (not replace) additional paths to preserve the package-level paths.
 	source "$(SETUP_SCRIPT)" 2>/dev/null || true && \
-	export CMAKE_PREFIX_PATH='$(PATH_COLCON);$(PATH_INSTALL);$(PATH_ROS)' && \
-	export AMENT_PREFIX_PATH='$(PATH_COLCON);$(PATH_INSTALL);$(PATH_ROS)' && \
+	export CMAKE_PREFIX_PATH="$(PATH_INSTALL):$(PATH_ROS):$$CMAKE_PREFIX_PATH" && \
+	export AMENT_PREFIX_PATH="$(PATH_INSTALL):$(PATH_ROS):$$AMENT_PREFIX_PATH" && \
 	mkdir -p .obj-$(DEB_HOST_GNU_TYPE) && \
 	cd .obj-$(DEB_HOST_GNU_TYPE) && \
 	cmake .. \
@@ -72,18 +72,18 @@ override_dh_auto_configure:
 		$(BUILD_TESTING_ARG)
 
 override_dh_auto_build:
-	# Source setup script for build environment
+	# Source setup script for build environment (preserves package-level paths from local_setup.bash)
 	source "$(SETUP_SCRIPT)" 2>/dev/null || true && \
-	export CMAKE_PREFIX_PATH='$(PATH_COLCON);$(PATH_INSTALL);$(PATH_ROS)' && \
-	export AMENT_PREFIX_PATH='$(PATH_COLCON);$(PATH_INSTALL);$(PATH_ROS)' && \
+	export CMAKE_PREFIX_PATH="$(PATH_INSTALL):$(PATH_ROS):$$CMAKE_PREFIX_PATH" && \
+	export AMENT_PREFIX_PATH="$(PATH_INSTALL):$(PATH_ROS):$$AMENT_PREFIX_PATH" && \
 	$(MAKE) -C .obj-$(DEB_HOST_GNU_TYPE)
 
 override_dh_auto_test:
-	# Source setup script for test environment
+	# Source setup script for test environment (preserves package-level paths from local_setup.bash)
 	echo "-- Running tests. Even if one of them fails the build is not canceled."
 	source "$(SETUP_SCRIPT)" 2>/dev/null || true && \
-	export CMAKE_PREFIX_PATH='$(PATH_COLCON);$(PATH_INSTALL);$(PATH_ROS)' && \
-	export AMENT_PREFIX_PATH='$(PATH_COLCON);$(PATH_INSTALL);$(PATH_ROS)' && \
+	export CMAKE_PREFIX_PATH="$(PATH_INSTALL):$(PATH_ROS):$$CMAKE_PREFIX_PATH" && \
+	export AMENT_PREFIX_PATH="$(PATH_INSTALL):$(PATH_ROS):$$AMENT_PREFIX_PATH" && \
 	$(MAKE) -C .obj-$(DEB_HOST_GNU_TYPE) test || true
 
 override_dh_shlibdeps:
@@ -93,8 +93,8 @@ override_dh_shlibdeps:
 	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info $(EXTRA_LIB_PATHS) -l$(CURDIR)/debian/@(Package)/@(InstallationPrefix)/lib/:$(CURDIR)/debian/@(Package)/@(InstallationPrefix)/opt/@(Name)/lib/
 
 override_dh_auto_install:
-	# Source setup script for install environment
+	# Source setup script for install environment (preserves package-level paths from local_setup.bash)
 	source "$(SETUP_SCRIPT)" 2>/dev/null || true && \
-	export CMAKE_PREFIX_PATH='$(PATH_COLCON);$(PATH_INSTALL);$(PATH_ROS)' && \
-	export AMENT_PREFIX_PATH='$(PATH_COLCON);$(PATH_INSTALL);$(PATH_ROS)' && \
+	export CMAKE_PREFIX_PATH="$(PATH_INSTALL):$(PATH_ROS):$$CMAKE_PREFIX_PATH" && \
+	export AMENT_PREFIX_PATH="$(PATH_INSTALL):$(PATH_ROS):$$AMENT_PREFIX_PATH" && \
 	DESTDIR=$(CURDIR)/debian/@(Package) $(MAKE) -C .obj-$(DEB_HOST_GNU_TYPE) install
